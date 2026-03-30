@@ -25,6 +25,13 @@ import httpx
 
 from app.config import settings
 
+# Lazy module-level import so the name exists for patching in tests,
+# but openai doesn't need to be installed if you're using Ollama only.
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None  # type: ignore[assignment,misc]
+
 
 class Embedder(ABC):
     @abstractmethod
@@ -63,7 +70,6 @@ class OpenAIEmbedder(Embedder):
     """
 
     def __init__(self, model: str | None = None) -> None:
-        from openai import OpenAI
         self._client = OpenAI(api_key=settings.openai_api_key)
         self._model = model or settings.embed_model
 

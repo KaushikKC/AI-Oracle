@@ -1,3 +1,4 @@
+import tempfile
 from datetime import datetime, timezone, timedelta
 from typing import Generator, List
 from unittest.mock import MagicMock
@@ -144,8 +145,13 @@ def mock_embedder() -> MockEmbedder:
 
 @pytest.fixture
 def chroma_client() -> chromadb.ClientAPI:
-    """In-memory ChromaDB client — isolated per test, no disk I/O."""
-    return chromadb.EphemeralClient()
+    """
+    Isolated ChromaDB client per test using a temp directory.
+    EphemeralClient() shares state across instances in ChromaDB 1.x,
+    so we use PersistentClient with a unique temp dir instead.
+    """
+    with tempfile.TemporaryDirectory() as tmpdir:
+        yield chromadb.PersistentClient(path=tmpdir)
 
 
 @pytest.fixture

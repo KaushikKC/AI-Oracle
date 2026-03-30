@@ -70,7 +70,7 @@ class TestOpenAIEmbedder:
         embedding_data.embedding = [0.4, 0.5, 0.6]
         mock_client.embeddings.create.return_value = MagicMock(data=[embedding_data])
 
-        with patch("app.memory.embedder.OpenAI", return_value=mock_client):
+        with patch("app.memory.embedder.OpenAI", return_value=mock_client) as _:
             embedder = OpenAIEmbedder(model="text-embedding-3-small")
             result = embedder.embed("hello world")
 
@@ -97,6 +97,6 @@ class TestGetEmbedder:
             mock_settings.embed_provider = "openai"
             mock_settings.openai_api_key = "sk-test"
             mock_settings.embed_model = "text-embedding-3-small"
-            with patch("app.memory.embedder.OpenAI"):
+            with patch("app.memory.embedder.OpenAI", MagicMock()):
                 embedder = get_embedder()
         assert isinstance(embedder, OpenAIEmbedder)
