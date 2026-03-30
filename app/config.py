@@ -10,6 +10,11 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-4o-mini"
     database_url: str = "sqlite:///./userlife.db"
 
+    # Phase 2: Memory System
+    embed_provider: Literal["ollama", "openai"] = "ollama"
+    embed_model: str = "nomic-embed-text"
+    chroma_path: str = "./chroma_db"
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 
