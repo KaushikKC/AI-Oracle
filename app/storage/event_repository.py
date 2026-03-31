@@ -71,3 +71,25 @@ def get_events(
 def get_event_by_id(db: Session, event_id: int) -> Optional[Event]:
     orm = db.query(EventORM).filter(EventORM.id == event_id).first()
     return _orm_to_event(orm) if orm else None
+
+
+def get_all_events(db: Session) -> List[Event]:
+    """Fetch every event ordered by timestamp. Used by ProfileBuilder full rebuild."""
+    return [
+        _orm_to_event(orm)
+        for orm in db.query(EventORM).order_by(EventORM.timestamp.asc()).all()
+    ]
+
+
+def get_events_after(db: Session, event_id: int) -> List[Event]:
+    """
+    Fetch events with id > event_id ordered by timestamp.
+    Used by ProfileBuilder incremental update — only processes events not yet seen.
+    """
+    return [
+        _orm_to_event(orm)
+        for orm in db.query(EventORM)
+        .filter(EventORM.id > event_id)
+        .order_by(EventORM.timestamp.asc())
+        .all()
+    ]

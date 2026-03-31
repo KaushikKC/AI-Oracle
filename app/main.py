@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from app.db.database import init_db
 from app.ingestion.router import router as ingestion_router
 from app.memory.router import router as memory_router
+from app.profile.router import router as profile_router
 
 app = FastAPI(
     title="UserLife – Temporal Simulation Engine",
@@ -18,6 +19,7 @@ def on_startup() -> None:
 
 app.include_router(ingestion_router)
 app.include_router(memory_router)
+app.include_router(profile_router)
 
 
 @app.get("/health")

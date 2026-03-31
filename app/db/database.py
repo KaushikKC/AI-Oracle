@@ -24,5 +24,6 @@ def get_db():
 
 
 def init_db() -> None:
-    from app.db import orm_models  # noqa: F401 – ensure models are registered
+    from app.db import orm_models    # noqa: F401 – register event ORM
+    from app.db import profile_orm   # noqa: F401 – register profile ORM
     Base.metadata.create_all(bind=engine)
