@@ -5,6 +5,17 @@
 .env.local
 *.pem
 
+# Node.js / Next.js (frontend)
+node_modules/
+.next/
+out/
+.vercel
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
 # Python
 __pycache__/
 *.py[cod]
