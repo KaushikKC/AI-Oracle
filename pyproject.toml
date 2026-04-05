@@ -18,6 +18,9 @@ dependencies = [
     "chromadb>=0.5",
 ]
 
+[project.urls]
+Repository = "https://github.com/KaushikKC/Foretrace"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.2",

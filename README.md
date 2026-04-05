@@ -69,8 +69,8 @@ No journaling app. No AI therapist. No dashboard of vanity metrics. This is a **
 ### 1. Clone and set up the backend
 
 ```bash
-git clone <repo-url>
-cd UserLife
+git clone https://github.com/KaushikKC/Foretrace.git
+cd Foretrace
 
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
